@@ -5,7 +5,6 @@ import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const app = await NestFactory.create(AppModule);
 
   // Global Prefix (e.g., /api/v1)
