@@ -3,9 +3,16 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { RecordsModule } from './records/records.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, UsersModule, RecordsModule],
+  imports: [
+    PrismaModule,
+    AuthModule,
+    UsersModule,
+    RecordsModule,
+    DashboardModule,
+  ],
   controllers: [],
   providers: [],
 })
