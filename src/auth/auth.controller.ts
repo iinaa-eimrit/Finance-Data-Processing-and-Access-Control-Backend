@@ -26,7 +26,6 @@ export class AuthController {
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
   getProfile(@CurrentUser() user: User) {
-    // Explicitly map the safe fields to avoid the "unused variable" warning on passwordHash
     const userProfile: Omit<User, 'passwordHash'> = {
       id: user.id,
       name: user.name,

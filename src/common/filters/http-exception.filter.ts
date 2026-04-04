@@ -24,7 +24,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
         ? exception.getResponse()
         : 'Internal server error';
 
-    // Safely extract the message without using 'any'
     let finalMessage: unknown = exceptionResponse;
 
     if (

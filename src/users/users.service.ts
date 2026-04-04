@@ -14,7 +14,6 @@ import type { User } from '@prisma/client';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  // Helper to remove password from responses
   private excludePassword(user: User): Omit<User, 'passwordHash'> {
     return {
       id: user.id,

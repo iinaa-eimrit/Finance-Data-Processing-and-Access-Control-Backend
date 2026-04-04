@@ -20,6 +20,6 @@ export class ActiveUserGuard implements CanActivate {
       throw new UnauthorizedException('User account is inactive');
     }
 
-    return true; // Let them through!
+    return true;
   }
 }

@@ -15,7 +15,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayload) {
-    // We re-verify the user against the DB to ensure they haven't been deleted or deactivated
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
     });
@@ -24,7 +23,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException('User no longer exists');
     }
 
-    // Pass the fresh user object to the request
     return user;
   }
 }
