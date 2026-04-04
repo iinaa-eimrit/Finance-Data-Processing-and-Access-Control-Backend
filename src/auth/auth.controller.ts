@@ -9,8 +9,9 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { ActiveUserGuard } from '../common/guards/active-user.guard';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import type { User } from '@prisma/client';
 
 @Controller('auth')
@@ -24,14 +25,14 @@ export class AuthController {
   }
 
   @Get('me')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard, ActiveUserGuard)
   getProfile(@CurrentUser() user: User) {
     const userProfile: Omit<User, 'passwordHash'> = {
       id: user.id,
       name: user.name,
       email: user.email,
       role: user.role,
-      status: user.status,
+      isActive: user.isActive,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };

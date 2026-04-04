@@ -21,7 +21,7 @@ async function main() {
       email: 'admin@example.com',
       passwordHash: adminPassword,
       role: 'ADMIN',
-      status: 'ACTIVE',
+      isActive: true,
     },
   });
 
@@ -31,7 +31,7 @@ async function main() {
       email: 'analyst@example.com',
       passwordHash: analystPassword,
       role: 'ANALYST',
-      status: 'ACTIVE',
+      isActive: true,
     },
   });
 
@@ -41,7 +41,7 @@ async function main() {
       email: 'viewer@example.com',
       passwordHash: viewerPassword,
       role: 'VIEWER',
-      status: 'ACTIVE',
+      isActive: true,
     },
   });
 

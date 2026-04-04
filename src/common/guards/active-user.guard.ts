@@ -1,6 +1,7 @@
 import {
   CanActivate,
   ExecutionContext,
+  ForbiddenException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -16,8 +17,10 @@ export class ActiveUserGuard implements CanActivate {
       throw new UnauthorizedException('User not authenticated');
     }
 
-    if (user.status !== 'ACTIVE') {
-      throw new UnauthorizedException('User account is inactive');
+    if (!user.isActive) {
+      throw new ForbiddenException(
+        'Your account has been deactivated. Please contact an administrator.',
+      );
     }
 
     return true;

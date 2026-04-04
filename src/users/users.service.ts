@@ -20,7 +20,7 @@ export class UsersService {
       name: user.name,
       email: user.email,
       role: user.role,
-      status: user.status,
+      isActive: user.isActive,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };
@@ -78,14 +78,13 @@ export class UsersService {
 
       // Rule: Prevent deactivating or downgrading the last active admin
       const isCurrentlyActiveAdmin =
-        targetUser.role === 'ADMIN' && targetUser.status === 'ACTIVE';
-      const isDowngradingOrDeactivating =
-        (updateUserDto.role && updateUserDto.role !== 'ADMIN') ||
-        (updateUserDto.status && updateUserDto.status !== 'ACTIVE');
+        targetUser.role === 'ADMIN' && targetUser.isActive;
+      const isDowngrading =
+        updateUserDto.role && updateUserDto.role !== 'ADMIN';
 
-      if (isCurrentlyActiveAdmin && isDowngradingOrDeactivating) {
+      if (isCurrentlyActiveAdmin && isDowngrading) {
         const activeAdminsCount = await tx.user.count({
-          where: { role: 'ADMIN', status: 'ACTIVE' },
+          where: { role: 'ADMIN', isActive: true },
         });
 
         if (activeAdminsCount <= 1) {
@@ -98,6 +97,38 @@ export class UsersService {
       const updatedUser = await tx.user.update({
         where: { id },
         data: updateUserDto,
+      });
+
+      return this.excludePassword(updatedUser);
+    });
+  }
+
+  async updateStatus(id: string, isActive: boolean) {
+    return this.prisma.$transaction(async (tx) => {
+      const targetUser = await tx.user.findUnique({ where: { id } });
+
+      if (!targetUser) {
+        throw new NotFoundException('User not found');
+      }
+
+      const isDisablingLastActiveAdmin =
+        targetUser.role === 'ADMIN' && targetUser.isActive && !isActive;
+
+      if (isDisablingLastActiveAdmin) {
+        const activeAdminsCount = await tx.user.count({
+          where: { role: 'ADMIN', isActive: true },
+        });
+
+        if (activeAdminsCount <= 1) {
+          throw new BadRequestException(
+            'Cannot downgrade or deactivate the last active admin',
+          );
+        }
+      }
+
+      const updatedUser = await tx.user.update({
+        where: { id },
+        data: { isActive },
       });
 
       return this.excludePassword(updatedUser);

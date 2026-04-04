@@ -21,7 +21,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    if (user.status !== 'ACTIVE') {
+    if (!user.isActive) {
       throw new UnauthorizedException('User account is inactive');
     }
 
@@ -37,7 +37,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       role: user.role,
-      status: user.status,
+      isActive: user.isActive,
     };
 
     return {
