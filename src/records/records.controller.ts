@@ -19,7 +19,9 @@ import { CreateRecordDto } from './dto/create-record.dto';
 import { ListRecordsQueryDto } from './dto/list-records-query.dto';
 import { UpdateRecordDto } from './dto/update-record.dto';
 import { RecordsService } from './records.service';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('records')
 @UseGuards(JwtAuthGuard, ActiveUserGuard, RolesGuard)
 export class RecordsController {

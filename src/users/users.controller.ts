@@ -14,7 +14,9 @@ import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { ActiveUserGuard } from '../common/guards/active-user.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('users')
 @UseGuards(JwtAuthGuard, ActiveUserGuard, RolesGuard)
 @Roles('ADMIN')

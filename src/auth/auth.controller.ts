@@ -13,6 +13,7 @@ import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { ActiveUserGuard } from '../common/guards/active-user.guard';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import type { User } from '@prisma/client';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
@@ -24,6 +25,7 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
+  @ApiBearerAuth()
   @Get('me')
   @UseGuards(JwtAuthGuard, ActiveUserGuard)
   getProfile(@CurrentUser() user: User) {

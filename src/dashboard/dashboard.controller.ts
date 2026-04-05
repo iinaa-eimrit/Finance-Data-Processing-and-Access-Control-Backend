@@ -10,7 +10,9 @@ import { ActiveUserGuard } from '../common/guards/active-user.guard';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { DashboardService } from './dashboard.service';
 import { TrendsQueryDto } from './dto/trends-query.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('dashboard')
 @UseGuards(JwtAuthGuard, ActiveUserGuard)
 export class DashboardController {
