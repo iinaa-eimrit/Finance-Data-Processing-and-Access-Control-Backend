@@ -10,6 +10,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserStatusDto } from './dto/update-user-status.dto';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { ActiveUserGuard } from '../common/guards/active-user.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
@@ -46,8 +47,8 @@ export class UsersController {
   @Patch(':id/status')
   toggleUserStatus(
     @Param('id') id: string,
-    @Body('isActive') isActive: boolean,
+    @Body() updateUserStatusDto: UpdateUserStatusDto,
   ) {
-    return this.usersService.updateStatus(id, isActive);
+    return this.usersService.updateStatus(id, updateUserStatusDto.isActive);
   }
 }
