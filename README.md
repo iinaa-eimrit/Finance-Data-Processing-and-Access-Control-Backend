@@ -3,12 +3,6 @@
 This backend handles authentication, user access, financial records, and dashboard reporting for a small shared finance system.  
 It is built with NestJS, Prisma, SQLite, and TypeScript, with a focus on predictable APIs, clear access rules, and data integrity.
 
-## Why this project exists
-
-Teams often need a simple internal system to track income and expenses without pushing accounting logic into spreadsheets or scattered admin tools.
-
-This backend covers the parts that usually get messy first: who can log in, who can change data, how records are stored safely, and how summaries can be generated from the same source of truth.
-
 ## Features
 
 ### Authentication and Access Control

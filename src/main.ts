@@ -30,8 +30,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
-  await app.listen(3000);
-  console.log(`Application is running on: http://localhost:3000/api/v1`);
-  console.log(`Swagger Docs available at: http://localhost:3000/api/docs`);
+  const port = process.env.PORT || 3000;
+  // '0.0.0.0' is required by Render so it listens on all network interfaces
+  await app.listen(port, '0.0.0.0');
+  console.log(`Application is running on: http://localhost:${port}/api/v1`);
+  console.log(`Swagger Docs available at: http://localhost:${port}/api/docs`);
 }
 void bootstrap();
