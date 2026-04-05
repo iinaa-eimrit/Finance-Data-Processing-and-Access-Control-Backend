@@ -1,6 +1,6 @@
 # Finance Dashboard API - Backend Assessment
 
-A RESTful backend built with **NestJS, Prisma, and SQLite**. This API serves as the data and access-control layer for a financial dashboard, strictly enforcing Role-Based Access Control (RBAC), data validation, and financial accuracy.
+A RESTful backend built with NestJS, Prisma, and SQLite. This API serves as the data and access-control layer for a financial dashboard, handling role-based access control (RBAC), data validation, and core financial data processing.
 
 ## Quick Start
 
@@ -58,77 +58,6 @@ npm run start:dev
 
 ---
 
-## Architecture & Engineering Decisions
-
-To ensure maintainability, security, and correctness, I prioritized the following patterns:
-
-### 1. Financial Accuracy (No Floating Point Math)
-Floating-point arithmetic is notoriously dangerous for financial systems. All monetary values are strictly validated and stored natively as integer cents (e.g., `$150.50` is stored as `15050`). 
-
-### 2. Guard-Based Access Control (RBAC)
-Authorization is completely decoupled from the business logic. Instead of cluttering controllers with `if/else` role checks, routing is protected strictly by custom NestJS Guards:
-* `JwtAuthGuard`: Validates the token signature.
-* `ActiveUserGuard`: Ensures the user account has not been deactivated.
-* `RolesGuard`: Intercepts the request and strictly blocks users who lack the required metadata (e.g., `@Roles('ADMIN')`).
-
-### 3. Separation of Concerns (Soft Deletes vs. Profile Updates)
-Instead of hard-deleting users (which orphans financial records), users are deactivated via an `isActive` boolean. Furthermore, account status changes (`PATCH /users/:id/status`) are kept strictly separated from general profile/role updates (`PATCH /users/:id`) to prevent accidental privilege escalation or deactivation.
-
-### 4. Ironclad Input Validation
-The application heavily utilizes `class-validator` and `class-transformer` via a global `ValidationPipe` configured with `whitelist: true` and `forbidNonWhitelisted: true`. The API will automatically reject requests containing undefined fields, preventing mass-assignment vulnerabilities.
-
-### 5. Standardized Error Handling
-A custom `GlobalExceptionFilter` guarantees that every single error—whether it's a 400 Bad Request, a 403 Forbidden, or an unhandled 500 Internal Server Error—is returned to the client in a predictable, strongly-typed JSON format.
-
----
-
-## 📂 Project Structure
-
-Following a modular architecture, the domains are strictly separated:
-* `src/auth/`: Identity verification, JWT generation, and login strategy.
-* `src/users/`: Admin-only endpoints for managing system access and user lifecycles.
-* `src/records/`: Transactional ledger for managing shared financial entries.
-* `src/dashboard/`: Pre-calculated aggregations (using Prisma `groupBy` and `_sum`) for frontend analytics.
-* `src/common/`: Shared utilities, global exception filters, decorators, and security Guards.
-
-## Features
-
-### Authentication and Access Control
-
-- JWT login flow
-- Role-based access for `ADMIN`, `ANALYST`, and `VIEWER`
-- Active and inactive user handling through `isActive`
-- Route-level authorization using Nest guards
-
-### User Management
-
-- Create users
-- View users
-- Update user roles
-- Activate or deactivate users without deleting them
-- Protection against disabling the last active admin
-
-### Financial Records
-
-- Create, read, update, and delete records
-- Filter by type, category, amount range, and date range
-- Sort and paginate large result sets
-- Validate unsupported sort fields and invalid filter ranges
-
-### Dashboard APIs
-
-- Total income, total expenses, net balance, and record count
-- Category breakdown grouped by income and expense
-- Monthly trends for recent periods
-- Recent activity feed with creator details
-
-### Operational Details
-
-- Consistent global error response format
-- Prisma migrations for schema changes
-- Seed data for local review and manual testing
-- Swagger docs at `/api/docs`
-
 ## Tech Stack
 
 ### Backend
@@ -149,7 +78,6 @@ Following a modular architecture, the domains are strictly separated:
 - Swagger
 - ESLint
 - Prettier
-- ts-node
 
 ## Architecture Overview
 
@@ -157,11 +85,12 @@ The request flow is intentionally straightforward:
 
 `Controller -> Guard -> Service -> Prisma -> SQLite`
 
-- Controllers define routes and request shapes.
-- Guards handle authentication, active-user checks, and role checks before business logic runs.
-- Services contain the application rules, query construction, and transaction boundaries.
-- Prisma is the only layer that talks to the database.
+- Controllers: Define routes and request shapes.
+- Guards: Handle authentication, active-user checks, and role checks before business logic runs.
+- Services: Contain the application rules, query construction, and transaction boundaries.
+- Prisma: The only layer that interacts with the database.
 
+## Project Structure
 The `src/` folder is split by feature so each area stays easy to follow:
 
 ```text
@@ -169,38 +98,37 @@ src/
   auth/        login, JWT strategy, auth endpoints
   users/       user management endpoints and service logic
   records/     record CRUD, filtering, pagination
-  dashboard/   analytics and reporting endpoints
-  common/      guards, decorators, filters, shared types
+  dashboard/   Pre-calculated aggregations for frontend analytics.
+  common/      Shared guards, decorators, exception filters, and types.
   prisma/      Nest wrapper around PrismaClient
 ```
 
-## API Design Highlights
+## Engineering Decisions & Highlights
+- Integer-based Currency: To avoid floating-point precision issues, all monetary values are validated, sent, and stored strictly as integer cents (e.g., $150.50 is 15050).
 
-- Money is stored as integer cents, not floats, so totals stay exact.
-- Guards are used instead of scattered inline checks so access rules stay visible in controllers.
-- Multi-step writes use Prisma transactions where partial updates would be risky.
-- DTOs validate both request bodies and query params before service logic runs.
-- Dashboard endpoints read from the same record store used by CRUD endpoints, so reporting stays tied to the real data.
+- Decoupled Authorization: Instead of inline if/else role checks inside controllers, routing is protected by custom NestJS Guards (JwtAuthGuard, ActiveUserGuard, RolesGuard). Access rules stay visible at the controller level.
 
-## Assumptions
+- Strict Validation: The app uses class-validator via a global ValidationPipe with whitelist: true. It automatically strips out undefined fields from request bodies to prevent mass-assignment vulnerabilities, and specifically validates unsupported sort fields or invalid filter ranges.
 
-- This runs as a single backend service with one shared SQLite database.
-- Role names are fixed to `ADMIN`, `ANALYST`, and `VIEWER`.
-- Only active users can access protected routes.
-- Dashboard numbers are calculated directly from stored financial records.
-- All money values are sent and stored in cents.
+- Soft Deletes & Endpoint Separation: Users are deactivated via an isActive flag rather than hard-deleted to prevent orphaning financial records. Changing a user's status (/users/:id/status) is a separate endpoint from general profile updates (/users/:id) to prevent accidental deactivations. I also implemented logic to prevent disabling the last active admin.
 
-## Trade-offs and Decisions
+- Global Error Handling: A custom GlobalExceptionFilter ensures that all errors return in a consistent, predictable JSON format across the entire API.
 
-- SQLite keeps setup simple and makes the project easy to run locally. For a multi-instance deployment, I would move to PostgreSQL.
-- Authentication is access-token only. There is no refresh-token flow yet, which keeps the auth path simpler but leaves token lifecycle basic.
-- Dashboard analytics are computed on read. That keeps writes simple, but a larger dataset would likely need pre-aggregation.
-- Role and record-type values are stored as strings in the schema. That made iteration faster, but enums would be a sensible next tightening step.
+## Assumptions & Trade-offs
+- SQLite vs. Postgres: I used SQLite so the reviewer can run the app immediately without spinning up a database container. For a multi-instance production deployment, I would swap this to PostgreSQL to handle concurrency.
+
+- Real-time Analytics: Dashboard analytics are computed on read using Prisma's groupBy and _sum. This keeps the write-path simple and ensures reporting stays tied to real data. For a massive dataset, this would likely need to be moved to a pre-aggregation step or a Redis cache.
+
+- Auth Scope: Authentication is currently access-token only. I skipped building a refresh-token flow to keep the scope of the assessment focused on RBAC and business logic, which leaves the token lifecycle basic.
+
+- Enums: Role and record-type values are stored as strings in the schema. This made iteration faster for the assessment, but migrating them to native Prisma enums would be a sensible next step.
+
+- Single Currency: I assumed a single base currency for all records.
 
 ## Future Improvements
+Given more time, I would add:
 
-- Add refresh tokens and token revocation
-- Add automated tests for auth, RBAC, and filter edge cases
-- Add audit logs for user changes and record edits
-- Move role and record-type values to Prisma enums
-- Add rate limiting and request logging for production use
+- Refresh tokens and token revocation.
+- Automated tests (Jest) for auth, RBAC, and filter edge cases.
+- Audit logs for tracking user changes and record edits.
+- Rate limiting (@nestjs/throttler) and request logging for production use.
