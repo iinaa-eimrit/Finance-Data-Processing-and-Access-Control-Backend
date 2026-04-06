@@ -1,0 +1,539 @@
+{
+  "info": {
+    "_postman_id": "1d90dcf6-c2d9-4501-a7c8-4d2c6161e41b",
+    "name": "Finance API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "36789628"
+  },
+  "item": [
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Auth",
+          "item": [
+            {
+              "name": "login",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\":\t\"admin123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-data-processing-and-access-7752.onrender.com/api/v1/auth/login",
+                  "protocol": "https",
+                  "host": [
+                    "finance-data-processing-and-access-7752",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "me",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYTBmYmQ2ZC0xOGE1LTQyZDYtOGM4ZC01YjQxZGIyN2E0MDIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc3NTQ2NzI2OSwiZXhwIjoxNzc1NTUzNjY5fQ.x9u-7QKrofWArNvigCfddrhYc_S1DuSvLrjIV8JbYoI",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://finance-data-processing-and-access-7752.onrender.com/api/v1/auth/me",
+                  "protocol": "https",
+                  "host": [
+                    "finance-data-processing-and-access-7752",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "me"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Users",
+          "item": [
+            {
+              "name": "get_users",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYTBmYmQ2ZC0xOGE1LTQyZDYtOGM4ZC01YjQxZGIyN2E0MDIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc3NTQ2NzI2OSwiZXhwIjoxNzc1NTUzNjY5fQ.x9u-7QKrofWArNvigCfddrhYc_S1DuSvLrjIV8JbYoI",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://finance-data-processing-and-access-7752.onrender.com/api/v1/users",
+                  "protocol": "https",
+                  "host": [
+                    "finance-data-processing-and-access-7752",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "user/{id}",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYTBmYmQ2ZC0xOGE1LTQyZDYtOGM4ZC01YjQxZGIyN2E0MDIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc3NTQ2NzI2OSwiZXhwIjoxNzc1NTUzNjY5fQ.x9u-7QKrofWArNvigCfddrhYc_S1DuSvLrjIV8JbYoI",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://finance-data-processing-and-access-7752.onrender.com/api/v1/users/aa0fbd6d-18a5-42d6-8c8d-5b41db27a402",
+                  "protocol": "https",
+                  "host": [
+                    "finance-data-processing-and-access-7752",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "aa0fbd6d-18a5-42d6-8c8d-5b41db27a402"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "post_user",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYTBmYmQ2ZC0xOGE1LTQyZDYtOGM4ZC01YjQxZGIyN2E0MDIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc3NTQ2NzI2OSwiZXhwIjoxNzc1NTUzNjY5fQ.x9u-7QKrofWArNvigCfddrhYc_S1DuSvLrjIV8JbYoI",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Postman Test User\",\r\n  \"email\": \"postman_test@example.com\",\r\n  \"password\": \"securepassword123\",\r\n  \"role\": \"ANALYST\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-data-processing-and-access-7752.onrender.com/api/v1/users",
+                  "protocol": "https",
+                  "host": [
+                    "finance-data-processing-and-access-7752",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get_new_user{id}",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYTBmYmQ2ZC0xOGE1LTQyZDYtOGM4ZC01YjQxZGIyN2E0MDIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc3NTQ2NzI2OSwiZXhwIjoxNzc1NTUzNjY5fQ.x9u-7QKrofWArNvigCfddrhYc_S1DuSvLrjIV8JbYoI",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://finance-data-processing-and-access-7752.onrender.com/api/v1/users/03e2ca9b-d01a-4b0e-9e88-225146e36bf7",
+                  "protocol": "https",
+                  "host": [
+                    "finance-data-processing-and-access-7752",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "03e2ca9b-d01a-4b0e-9e88-225146e36bf7"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "patch_user{id}",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYTBmYmQ2ZC0xOGE1LTQyZDYtOGM4ZC01YjQxZGIyN2E0MDIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc3NTQ2NzI2OSwiZXhwIjoxNzc1NTUzNjY5fQ.x9u-7QKrofWArNvigCfddrhYc_S1DuSvLrjIV8JbYoI",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"role\": \"VIEWER\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-data-processing-and-access-7752.onrender.com/api/v1/users/03e2ca9b-d01a-4b0e-9e88-225146e36bf7",
+                  "protocol": "https",
+                  "host": [
+                    "finance-data-processing-and-access-7752",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "03e2ca9b-d01a-4b0e-9e88-225146e36bf7"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "patch_user{id}_status",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYTBmYmQ2ZC0xOGE1LTQyZDYtOGM4ZC01YjQxZGIyN2E0MDIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc3NTQ2NzI2OSwiZXhwIjoxNzc1NTUzNjY5fQ.x9u-7QKrofWArNvigCfddrhYc_S1DuSvLrjIV8JbYoI",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"isActive\": false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-data-processing-and-access-7752.onrender.com/api/v1/users/03e2ca9b-d01a-4b0e-9e88-225146e36bf7/status",
+                  "protocol": "https",
+                  "host": [
+                    "finance-data-processing-and-access-7752",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "users",
+                    "03e2ca9b-d01a-4b0e-9e88-225146e36bf7",
+                    "status"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Records",
+          "item": [
+            {
+              "name": "get_records",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            },
+            {
+              "name": "post_records",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYTBmYmQ2ZC0xOGE1LTQyZDYtOGM4ZC01YjQxZGIyN2E0MDIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc3NTQ2NzI2OSwiZXhwIjoxNzc1NTUzNjY5fQ.x9u-7QKrofWArNvigCfddrhYc_S1DuSvLrjIV8JbYoI",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"amountCents\": 250000, \r\n  \"type\": \"INCOME\",\r\n  \"category\": \"Client Project\",\r\n  \"notes\": \"Payment for Phase 1 delivery\",\r\n  \"transactionDate\": \"2026-04-06T10:00:00Z\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-data-processing-and-access-7752.onrender.com/api/v1/records",
+                  "protocol": "https",
+                  "host": [
+                    "finance-data-processing-and-access-7752",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "records"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get_records{id}",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            },
+            {
+              "name": "patch_records{id}",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYTBmYmQ2ZC0xOGE1LTQyZDYtOGM4ZC01YjQxZGIyN2E0MDIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc3NTQ2NzI2OSwiZXhwIjoxNzc1NTUzNjY5fQ.x9u-7QKrofWArNvigCfddrhYc_S1DuSvLrjIV8JbYoI",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"amountCents\": 650000,\r\n  \"notes\": \"Payment for final delivery\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-data-processing-and-access-7752.onrender.com/api/v1/records/d45fb3fd-5590-403f-a435-2a45c3981d12",
+                  "protocol": "https",
+                  "host": [
+                    "finance-data-processing-and-access-7752",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "records",
+                    "d45fb3fd-5590-403f-a435-2a45c3981d12"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete_records{id}",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYTBmYmQ2ZC0xOGE1LTQyZDYtOGM4ZC01YjQxZGIyN2E0MDIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc3NTQ2NzI2OSwiZXhwIjoxNzc1NTUzNjY5fQ.x9u-7QKrofWArNvigCfddrhYc_S1DuSvLrjIV8JbYoI",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://finance-data-processing-and-access-7752.onrender.com/api/v1/records/d45fb3fd-5590-403f-a435-2a45c3981d12",
+                  "protocol": "https",
+                  "host": [
+                    "finance-data-processing-and-access-7752",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "records",
+                    "d45fb3fd-5590-403f-a435-2a45c3981d12"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Dashboard",
+          "item": [
+            {
+              "name": "summary",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            },
+            {
+              "name": "category-breakdown",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            },
+            {
+              "name": "trends",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            },
+            {
+              "name": "recent-activity",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhYTBmYmQ2ZC0xOGE1LTQyZDYtOGM4ZC01YjQxZGIyN2E0MDIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6IkFETUlOIiwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc3NTQ2NzI2OSwiZXhwIjoxNzc1NTUzNjY5fQ.x9u-7QKrofWArNvigCfddrhYc_S1DuSvLrjIV8JbYoI",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://finance-data-processing-and-access-7752.onrender.com/api/v1/dashboard/recent-activity?limit=4",
+                  "protocol": "https",
+                  "host": [
+                    "finance-data-processing-and-access-7752",
+                    "onrender",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "dashboard",
+                    "recent-activity"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "4",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
