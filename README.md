@@ -14,7 +14,8 @@ For the fastest experience, the application and interactive documentation are de
 ### Test Credentials
 
 Postman Collection is added in the files, please check that, It contains pre-configured requests for all endpoints, including authentication flows and RBAC testing.
-**[View and Download the Postman Collection](./Finance API.postman_collection.json)**
+
+[View and Download the Postman Collection](./Finance-API.postman_collection.json)
 
 The database has been seeded with 40 financial records and 3 test users. Use these credentials to test the RBAC functionality.
 
