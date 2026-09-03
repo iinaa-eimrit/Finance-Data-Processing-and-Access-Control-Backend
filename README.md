@@ -1,6 +1,6 @@
-# Finance Dashboard API - Backend Assessment
+# Financial Data & RBAC API
 
-A RESTful backend built with NestJS, Prisma, and SQLite. This API serves as the data and access-control layer for a financial dashboard, handling role-based access control (RBAC), data validation, and core financial data processing.
+A RESTful backend built with NestJS, Prisma, and SQLite. This API serves as the data and access-control layer for a financial dashboard, handling role-based access control (RBAC), automated JWT validation, and core financial data processing.
 
 ## Quick Start
 
